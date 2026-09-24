@@ -18,8 +18,8 @@ Supports basic arithmetic operations: addition, subtraction, multiplication, and
 ## How to Run
 1. Compile all `.java` files:
 ```bash
-javac CalculatorApp.java gui/*.java constants/*.java service/*.java
-````
+javac -d . *.java
+```
 
 2. Run the application:
 
