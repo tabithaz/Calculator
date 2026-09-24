@@ -35,6 +35,9 @@ public class CalculatorService {
     }
 
     public double divide(){
+        if (this.num2 == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
         return this.num1/this.num2;
     }
 
