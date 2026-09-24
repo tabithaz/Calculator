@@ -142,7 +142,14 @@ public class CalculatorGui extends JFrame implements ActionListener {
                     result = calculatorService.subtract();
                     break;
                 case '/':
-                    result = calculatorService.divide();
+                    try {
+                        result = calculatorService.divide();
+                    } catch (ArithmeticException error) {
+                        displayField.setText("Cannot divide by zero");
+                        pressedEquals = true;
+                        pressedOperator = false;
+                        return;
+                    }
                     break;
                 case 'x':
                     result = calculatorService.multiply();
@@ -157,10 +164,16 @@ public class CalculatorGui extends JFrame implements ActionListener {
             pressedOperator = false;
 
         }else if(buttonCommand.equals(".")){
+            if (pressedEquals) {
+                displayField.setText("0.");
+                pressedEquals = false;
+                return;
+            }
             if(!displayField.getText().contains(".")){
                 displayField.setText(displayField.getText() + buttonCommand);
             }
         }else{ // operator
+            if (displayField.getText().equals("Cannot divide by zero")) return;
             if(!pressedOperator)
                 calculatorService.setNum1(Double.parseDouble(displayField.getText()));
 
